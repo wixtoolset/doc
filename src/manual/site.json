@@ -1,0 +1,21 @@
+{
+  "title": "WiX Toolset",
+
+  "output": "../wwwroot/",
+  "rooturl": "http://wixtoolset.org/",
+  "url": "/",
+
+  "author": {
+    "id": "wix",
+    "name": "WiX Toolset",
+    "email": "wix@wixtoolset.org",
+    "url": "http://wixtoolset.org/"
+  },
+
+  "ignorefiles": [ "*.tmp", "*.*~" ],
+
+  "additionalmetadata": {
+    "documents/documentation/manual/v3/**": { "disableCleanUrls": true },
+    "documents/documentation/manual/v4/**": { "disableCleanUrls": true },
+  }
+}

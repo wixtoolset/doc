@@ -1,0 +1,12 @@
+---
+layout: documentation
+order: 5
+xsds?: query documents where title endswith "schema reference"
+---
+
+<ul>
+@foreach (var xsd in @Model.Document.xsds)
+{
+<li><a href="@xsd.RelativeUrl">@Raw(xsd.Title)</a></li>
+}
+</ul>
