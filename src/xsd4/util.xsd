@@ -469,7 +469,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attribute name="BinaryKey" type="xs:string" use="required">
+      <xs:attribute name="BinaryRef" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>
           The id of a Binary row that contains a copy of the file. The file in the Binary table overwrites whatever
