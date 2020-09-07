@@ -8795,7 +8795,7 @@
             </xs:annotation>
           </xs:attribute>
           <!-- CustomAction Source specification, sets source Attribute bits -->
-          <xs:attribute name="BinaryKey" type="xs:string">
+          <xs:attribute name="BinaryRef" type="xs:string">
             <xs:annotation>
               <xs:documentation>
                                 This attribute is a reference to a Binary element with matching Id attribute. That binary stream contains
@@ -8806,7 +8806,7 @@
                             </xs:documentation>
             </xs:annotation>
           </xs:attribute>
-          <xs:attribute name="FileKey" type="xs:string">
+          <xs:attribute name="FileRef" type="xs:string">
             <xs:annotation>
               <xs:documentation>
                                 This attribute specifies a reference to a File element with matching Id attribute that
@@ -8849,8 +8849,8 @@
             <xs:annotation>
               <xs:documentation>
                                 This attribute specifies the name of a function in a custom action to execute.
-                                This attribute is used with the BinaryKey attribute to create a type 1 custom
-                                action, or with the FileKey attribute to create a type 17 custom action.
+                                This attribute is used with the BinaryRef attribute to create a type 1 custom
+                                action, or with the FileRef attribute to create a type 17 custom action.
                             </xs:documentation>
             </xs:annotation>
           </xs:attribute>
@@ -8858,8 +8858,8 @@
             <xs:annotation>
               <xs:documentation>
                                 This attribute specifies the command line parameters to supply to an externally
-                                run executable. This attribute is typically used with the BinaryKey attribute for a type 2 custom action,
-                                the FileKey attribute for a type 18 custom action, the Property attribute for a type 50 custom action,
+                                run executable. This attribute is typically used with the BinaryRef attribute for a type 2 custom action,
+                                the FileRef attribute for a type 18 custom action, the Property attribute for a type 50 custom action,
                                 or the Directory attribute for a type 34 custom action that specify the executable to run.
                             </xs:documentation>
             </xs:annotation>
@@ -8868,8 +8868,8 @@
             <xs:annotation>
               <xs:documentation>
                             This attribute specifies the name of the JScript function to execute in a script. The script must be
-                            provided in a Binary element identified by the BinaryKey attribute described above. In other words, this
-                            attribute must be specified in conjunction with the BinaryKey attribute.
+                            provided in a Binary element identified by the BinaryRef attribute described above. In other words, this
+                            attribute must be specified in conjunction with the BinaryRef attribute.
                         </xs:documentation>
             </xs:annotation>
           </xs:attribute>
@@ -8877,8 +8877,8 @@
             <xs:annotation>
               <xs:documentation>
                             This attribute specifies the name of the VBScript Subroutine to execute in a script. The script must be
-                            provided in a Binary element identified by the BinaryKey attribute described above. In other words, this
-                            attribute must be specified in conjunction with the BinaryKey attribute.
+                            provided in a Binary element identified by the BinaryRef attribute described above. In other words, this
+                            attribute must be specified in conjunction with the BinaryRef attribute.
                         </xs:documentation>
             </xs:annotation>
           </xs:attribute>

@@ -540,7 +540,7 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="BinaryKey" type="xs:string">
+            <xs:attribute name="BinaryRef" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
                         Reference to a Binary element that will store the certificate as a stream inside the package.  This attribute cannot be specified with

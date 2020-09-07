@@ -220,7 +220,7 @@
             </xs:attribute>
             <xs:attribute name="User" type="xs:string">
             </xs:attribute>
-            <xs:attribute name="BinaryKey" type="xs:string" use="required">
+            <xs:attribute name="BinaryRef" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>Reference to Binary stream that contains the SQL script to execute.</xs:documentation>
                 </xs:annotation>
