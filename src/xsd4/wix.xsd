@@ -571,7 +571,7 @@
       <xs:attribute name="Id" type="xs:string" use="required">
         <xs:annotation>
           <xs:documentation>
-            The identifier of the BundleCustomDataRef element to reference.
+            The identifier of the BundleCustomData element to reference.
           </xs:documentation>
         </xs:annotation>
       </xs:attribute>
@@ -1707,6 +1707,7 @@
           <xs:element ref="CustomAction" />
           <xs:element ref="CustomActionRef" />
           <xs:element ref="CustomTable" />
+          <xs:element ref="CustomTableRef" />
           <xs:element ref="Directory" />
           <xs:element ref="DirectoryRef" />
           <xs:element ref="EmbeddedChainer" />
@@ -1820,6 +1821,7 @@
           <xs:element ref="CustomAction" />
           <xs:element ref="CustomActionRef" />
           <xs:element ref="CustomTable" />
+          <xs:element ref="CustomTableRef" />
           <xs:element ref="Dependency" />
           <xs:element ref="Directory" />
           <xs:element ref="DirectoryRef" />
@@ -2085,6 +2087,7 @@
         <xs:element ref="CustomAction" />
         <xs:element ref="CustomActionRef" />
         <xs:element ref="CustomTable" />
+        <xs:element ref="CustomTableRef" />
         <xs:element ref="Directory" />
         <xs:element ref="DirectoryRef" />
         <xs:element ref="EmbeddedChainer" />
@@ -12256,7 +12259,7 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="Column" minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Column" minOccurs="1" maxOccurs="unbounded">
           <xs:annotation>
             <xs:documentation>Column definition for the custom table.</xs:documentation>
           </xs:annotation>
@@ -12272,9 +12275,9 @@
           <xs:documentation>Identifier for the custom table.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="BootstrapperApplicationData" type="YesNoType">
+      <xs:attribute name="Unreal" type="YesNoType">
             <xs:annotation>
-                <xs:documentation>Indicates the table data is transformed into the bootstrapper application data manifest.</xs:documentation>
+                <xs:documentation>Indicates the table is not supposed to be included in the final output.</xs:documentation>
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
@@ -12488,6 +12491,25 @@
           </xs:attribute>
         </xs:extension>
       </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CustomTableRef">
+    <xs:annotation>
+      <xs:documentation>Used to reference a CustomTable element and optionally add more data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Row" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Row definition for the custom table.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The identifier of the CustomTable element to reference.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <!-- EnsureTable element, for preserving empty tables -->
