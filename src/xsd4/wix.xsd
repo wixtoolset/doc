@@ -86,6 +86,8 @@
         <xs:element ref="PayloadGroup" />
         <xs:element ref="PayloadGroupRef" />
         <xs:element ref="RelatedBundle" />
+        <xs:element ref="SetVariable" />
+        <xs:element ref="SetVariableRef" />
         <xs:element ref="Update" />
         <xs:element ref="Variable" />
         <xs:element ref="WixVariable" />
@@ -1198,26 +1200,10 @@
           <xs:documentation>Starting value for the variable.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="Type">
+      <xs:attribute name="Type" type="VariableType">
         <xs:annotation>
           <xs:documentation>Type of the variable, inferred from the value if not specified.</xs:documentation>
         </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="string">
-              <xs:annotation>
-                <xs:documentation>A literal string.</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="formatted">
-              <xs:annotation>
-                <xs:documentation>A string that may contain Variables.</xs:documentation>
-              </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="numeric" />
-            <xs:enumeration value="version" />
-          </xs:restriction>
-        </xs:simpleType>
       </xs:attribute>
       <xs:anyAttribute namespace="##other" processContents="lax">
         <xs:annotation>
@@ -1225,6 +1211,65 @@
                     Extensibility point in the WiX XML Schema. Schema extensions can register additional
                     attributes at this point in the schema.
                 </xs:documentation>
+        </xs:annotation>
+      </xs:anyAttribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetVariable">
+    <xs:annotation>
+      <xs:documentation>Schedules a "search" that sets a variable to the given value.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="SearchCommonAttributes" />
+      <xs:attribute name="Value" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>New value for the variable.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Type" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>Type of the variable, inferred from the value if not specified.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:anyAttribute namespace="##other" processContents="lax">
+        <xs:annotation>
+          <xs:documentation>
+            Extensibility point in the WiX XML Schema.  Schema extensions can register additional
+            attributes at this point in the schema.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:anyAttribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetVariableRef">
+    <xs:annotation>
+      <xs:appinfo>
+        <xse:seeAlso ref="SetVariable" />
+      </xs:appinfo>
+      <xs:documentation>Used to reference a SetVariable element.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:any namespace="##other" processContents="lax">
+          <xs:annotation>
+            <xs:documentation>
+                Extensibility point in the WiX XML Schema. Schema extensions can register additional
+                elements at this point in the schema.
+              </xs:documentation>
+          </xs:annotation>
+        </xs:any>
+      </xs:choice>
+      <xs:attribute name="Id" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The identifier of the SetVariable element to reference.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:anyAttribute namespace="##other" processContents="lax">
+        <xs:annotation>
+          <xs:documentation>
+              Extensibility point in the WiX XML Schema. Schema extensions can register additional
+              attributes at this point in the schema.
+            </xs:documentation>
         </xs:annotation>
       </xs:anyAttribute>
     </xs:complexType>
@@ -1968,6 +2013,8 @@
         <xs:element ref="RelatedBundle" />
         <xs:element ref="SetDirectory" />
         <xs:element ref="SetProperty" />
+        <xs:element ref="SetVariable" />
+        <xs:element ref="SetVariableRef" />
         <xs:element ref="SFPCatalog" />
         <xs:element ref="UI" />
         <xs:element ref="UIRef" />
@@ -13111,6 +13158,25 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="((\d+)|(\$\(\w+\.(\w|[.])+\)))+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VariableType">
+    <xs:annotation>
+      <xs:documentation>Indicates the type of a Variable.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="string">
+        <xs:annotation>
+          <xs:documentation>A literal string.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="formatted">
+        <xs:annotation>
+          <xs:documentation>A string that may contain Variables.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="numeric" />
+      <xs:enumeration value="version" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
