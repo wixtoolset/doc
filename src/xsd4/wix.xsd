@@ -72,11 +72,13 @@
     </xs:annotation>
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="ApprovedExeForElevation" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="ApprovedExeForElevation" />
         <xs:element ref="Log" minOccurs="0" maxOccurs="1" />
-        <xs:element ref="Catalog" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="Catalog" />
         <xs:element ref="BootstrapperApplication" minOccurs="0" maxOccurs="1" />
         <xs:element ref="BootstrapperApplicationRef" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="BundleExtension" />
+        <xs:element ref="BundleExtensionRef" />
         <xs:element ref="OptionalUpdateRegistration" minOccurs="0" maxOccurs="1" />
         <xs:element ref="Chain" minOccurs="1" maxOccurs="1" />
         <xs:element ref="Container" />
@@ -458,6 +460,73 @@
           <xs:documentation>See the BootstrapperApplication instead.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BundleExtension">
+    <xs:annotation>
+      <xs:documentation>An extension to the Burn engine. Currently requires a WiX compiler extension to do anything useful.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Payload" />
+        <xs:element ref="PayloadGroupRef" />
+        <xs:any namespace="##other" processContents="lax">
+          <xs:annotation>
+            <xs:documentation>
+                Extensibility point in the WiX XML Schema. Schema extensions can register additional
+                elements at this point in the schema.
+              </xs:documentation>
+          </xs:annotation>
+        </xs:any>
+      </xs:choice>
+      <xs:attribute name="Id" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The identifier of the BundleExtension element. Only required if you want to reference this element using a BundleExtensionRef element.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="SourceFile" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The DLL with the bundle extension entry function.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The relative destination path and file name for the bundle extension DLL. The default is the source file name. Use this attribute to rename the bundle extension DLL or extract it into a subfolder. The use of `..` directories is not allowed.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BundleExtensionRef">
+    <xs:annotation>
+      <xs:appinfo>
+        <xse:seeAlso ref="BundleExtension" />
+      </xs:appinfo>
+      <xs:documentation>Used to reference a BundleExtension element.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:any namespace="##other" processContents="lax">
+          <xs:annotation>
+            <xs:documentation>
+                Extensibility point in the WiX XML Schema. Schema extensions can register additional
+                elements at this point in the schema.
+              </xs:documentation>
+          </xs:annotation>
+        </xs:any>
+      </xs:choice>
+      <xs:attribute name="Id" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The identifier of the BundleExtension element to reference.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:anyAttribute namespace="##other" processContents="lax">
+        <xs:annotation>
+          <xs:documentation>
+              Extensibility point in the WiX XML Schema. Schema extensions can register additional
+              attributes at this point in the schema.
+            </xs:documentation>
+        </xs:annotation>
+      </xs:anyAttribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="OptionalUpdateRegistration">
@@ -1866,6 +1935,8 @@
         <xs:element ref="Binary" />
         <xs:element ref="BootstrapperApplication" />
         <xs:element ref="BootstrapperApplicationRef" />
+        <xs:element ref="BundleExtension" />
+        <xs:element ref="BundleExtensionRef" />
         <xs:element ref="ComplianceCheck" />
         <xs:element ref="Component" />
         <xs:element ref="ComponentGroup" />
