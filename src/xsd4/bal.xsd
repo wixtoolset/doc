@@ -9,7 +9,7 @@
               xmlns="http://wixtoolset.org/schemas/v4/wxs/bal">
     <xs:annotation>
         <xs:documentation>
-            The source code schema for the WiX Toolset Burn User Experience Extension.
+            The source code schema for the WiX Toolset Bootstrapper Application Layer Extension.
         </xs:documentation>
     </xs:annotation>
 
@@ -186,13 +186,108 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="ManagedBootstrapperApplicationPrereqInformation">
+        <xs:annotation>
+            <xs:documentation>
+                Adds license information for a prereq package, should only be used when unable to add the license attributes to the package directly.
+            </xs:documentation>
+            <xs:appinfo>
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Bundle" />
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Fragment" />
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="PackageId" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>Id of the target package.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="LicenseFile" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Source file of the license. May not be used with LicenseUrl.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="LicenseUrl" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Source url of the license. May not be used with LicenseFile.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="WixDotNetCoreBootstrapperApplication">
+        <xs:annotation>
+            <xs:documentation>
+                Configures the DotNetCoreBootstrapperApplicationHost for a Bundle.
+            </xs:documentation>
+            <xs:appinfo>
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplicationRef" />
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="LogoFile" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Source file of the logo graphic.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ThemeFile" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Source file of the theme XML.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="LocalizationFile" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Source file of the theme localization .wxl file.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="SelfContainedDeployment" type="YesNoType">
+                <xs:annotation>
+                    <xs:documentation>
+                        Whether the .NET Core BA was published as self-contained (SCD).
+                        If using PublishTrimmed in the .NET Core project, there must be an item group with &lt;TrimmerRootAssembly Include="System.Runtime.Loader" /&gt;
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attribute name="BAFactoryAssembly" type="YesNoType">
+        <xs:annotation>
+            <xs:documentation>
+                When set to "yes", DotNetCoreBootstrapperApplicationHost will load the DLL and instantiate the type with the BootstrapperApplicationFactoryAttribute.
+                There must be corresponding deps.json and runtimeconfig.json files (set EnableDynamicLoading to True in the .NET Core project).
+                The .NET Core project must have been published, not just built.
+                Only one payload may be marked with this attribute set to "yes".
+            </xs:documentation>
+            <xs:appinfo>
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Payload" />
+            </xs:appinfo>
+        </xs:annotation>
+    </xs:attribute>
+
     <xs:attribute name="BAFunctions" type="YesNoType">
         <xs:annotation>
             <xs:documentation>
                 When set to "yes", WixStdBA will load the DLL and work with it to handle BA messages.
+                Only one payload may be marked with this attribute set to "yes".
             </xs:documentation>
             <xs:appinfo>
                 <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Payload" />
+            </xs:appinfo>
+        </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="DisplayInternalUICondition" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies whether the bundle will show the UI authored into the msi package. If not specified or the condition evaluates
+                to false, all information is routed to the bootstrapper application to provide a unified installation experience.
+                Otherwise, the UI authored into the msi package will be displayed on top of any bootstrapper application UI.
+                WixStdBA doesn't support EmbeddedUI.
+            </xs:documentation>
+            <xs:appinfo>
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="MsiPackage" />
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="MspPackage" />
             </xs:appinfo>
         </xs:annotation>
     </xs:attribute>

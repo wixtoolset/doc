@@ -141,7 +141,7 @@
             <xs:attribute name="IgnoreFailure" type="YesNoType">
                 <xs:annotation>
                     <xs:documentation>
-                        If "yes," failures to register this firewall exception will be silently 
+                        If "yes", failures to register this firewall exception will be silently
                         ignored. If "no" (the default), failures will cause rollback.
                     </xs:documentation>
                 </xs:annotation>
@@ -170,6 +170,14 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+
+            <xs:attribute name="Outbound" type="YesNoType">
+                <xs:annotation>
+                    <xs:documentation>
+                        If "yes", registers an outbound firewall rule.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
@@ -182,20 +190,18 @@
                 <html:a href="http://msdn.microsoft.com/en-us/library/aa365270.aspx">
                     RemoteAddresses Property</html:a>.
                 For Windows Vista and Windows Server 2008, see
-                <html:a href="http://msdn.microsoft.com/en-us/library/aa365366.aspx">
+                <html:a href="https://docs.microsoft.com/en-us/windows/win32/api/netfw/nf-netfw-inetfwrule-get_remoteaddresses">
                     RemoteAddresses Property</html:a>.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:simpleContent>
-                <xs:extension base="xs:string">
-                    <xs:annotation>
-                        <xs:documentation>
+            <xs:attribute name="Value" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
                             A remote address.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:extension>
-            </xs:simpleContent>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
