@@ -77,6 +77,8 @@
         <xs:element ref="Catalog" />
         <xs:element ref="BootstrapperApplication" minOccurs="0" maxOccurs="1" />
         <xs:element ref="BootstrapperApplicationRef" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="BundleCustomData" />
+        <xs:element ref="BundleCustomDataRef" />
         <xs:element ref="BundleExtension" />
         <xs:element ref="BundleExtensionRef" />
         <xs:element ref="OptionalUpdateRegistration" minOccurs="0" maxOccurs="1" />
@@ -460,6 +462,117 @@
       <xs:attribute name="SplashScreenSourceFile" type="xs:string">
         <xs:annotation>
           <xs:documentation>See the BootstrapperApplication instead.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BundleCustomData">
+    <xs:annotation>
+      <xs:documentation>Defines a custom XML element for use in a bundle data manifest.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BundleAttributeDefinition" minOccurs="1" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Attribute definition for BundleCustomData.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="BundleElement" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Instance data for BundleCustomData.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>
+            Identifier for the custom table.
+            Also used as the name of the XML element.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Type">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates the custom data is transformed into the bootstrapper application data manifest or the bundle extension data manifest.
+            Defaults to BundleExtension if ExtensionId is specified, otherwise BootstrapperApplication.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="BootstrapperApplication" />
+            <xs:enumeration value="BundleExtension" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="ExtensionId" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            Identifier for the bundle extension.
+            Required when Type is BundleExtension, must not be specified otherwise.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BundleAttributeDefinition">
+    <xs:annotation>
+      <xs:documentation>Attribute definition for BundleCustomData.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="Id" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>The name of the attribute.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BundleElement">
+    <xs:annotation>
+      <xs:documentation>Instance data for BundleCustomData.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BundleAttribute" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BundleAttribute">
+    <xs:annotation>
+      <xs:documentation>Used for BundleCustomData. Specifies a BundleAttributeDefinition and its value for the parent BundleElement.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:annotation>
+            <xs:documentation>An attribute's value</xs:documentation>
+          </xs:annotation>
+          <xs:attribute name="Id" use="required" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Specifies the BundleAttributeDefinition associated with this value.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BundleCustomDataRef">
+    <xs:annotation>
+      <xs:documentation>Used to reference a BundleCustomData element and optionally add more data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BundleElement" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Instance data for BundleCustomData.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>
+            The identifier of the BundleCustomDataRef element to reference.
+          </xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -1960,6 +2073,8 @@
         <xs:element ref="Binary" />
         <xs:element ref="BootstrapperApplication" />
         <xs:element ref="BootstrapperApplicationRef" />
+        <xs:element ref="BundleCustomData" />
+        <xs:element ref="BundleCustomDataRef" />
         <xs:element ref="BundleExtension" />
         <xs:element ref="BundleExtensionRef" />
         <xs:element ref="ComplianceCheck" />
