@@ -669,16 +669,6 @@
         </xs:any>
       </xs:choice>
       <xs:attributeGroup ref="ChainPackageCommonAttributes" />
-      <xs:attribute name="DisplayInternalUI" type="YesNoTypeUnion">
-        <xs:annotation>
-          <xs:documentation>
-            Specifies whether the bundle will show the UI authored into the msi package. The default is "no"
-            which means all information is routed to the bootstrapper application to provide a unified installation
-            experience. If "yes" is specified the UI authored into the msi package will be displayed on top of
-            any bootstrapper application UI.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
       <xs:attribute name="EnableFeatureSelection" type="YesNoTypeUnion">
         <xs:annotation>
           <xs:documentation>
@@ -743,16 +733,6 @@
         </xs:any>
       </xs:choice>
       <xs:attributeGroup ref="ChainPackageCommonAttributes" />
-      <xs:attribute name="DisplayInternalUI" type="YesNoTypeUnion">
-        <xs:annotation>
-          <xs:documentation>
-            Specifies whether the bundle will show the UI authored into the msp package. The default is "no"
-            which means all information is routed to the bootstrapper application to provide a unified installation
-            experience. If "yes" is specified the UI authored into the msp package will be displayed on top of
-            any bootstrapper application UI.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
       <xs:attribute name="PerMachine" type="YesNoDefaultTypeUnion">
         <xs:annotation>
           <xs:documentation>Indicates the package must be executed elevated. The default is "no".</xs:documentation>
