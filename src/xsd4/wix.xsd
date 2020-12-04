@@ -1135,7 +1135,16 @@
         </xs:annotation>
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:enumeration value="string" />
+            <xs:enumeration value="string">
+              <xs:annotation>
+                <xs:documentation>A literal string.</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="formatted">
+              <xs:annotation>
+                <xs:documentation>A string that may contain Variables.</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="numeric" />
             <xs:enumeration value="version" />
           </xs:restriction>
