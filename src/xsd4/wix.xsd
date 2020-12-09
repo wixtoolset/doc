@@ -664,7 +664,7 @@
           <xs:documentation>The identifier of the BundleExtension element. Only required if you want to reference this element using a BundleExtensionRef element.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="SourceFile" type="xs:string">
+      <xs:attribute name="SourceFile" type="xs:string" use="required">
         <xs:annotation>
           <xs:documentation>The DLL with the bundle extension entry function.</xs:documentation>
         </xs:annotation>

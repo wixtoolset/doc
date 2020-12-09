@@ -48,10 +48,10 @@
     <xs:element name="WixStandardBootstrapperApplication">
         <xs:annotation>
             <xs:documentation>
-                Configures WixStandardBootstrapperApplication for a Bundle.
+                Uses WixStandardBootstrapperApplication as the Bootstrapper Application for a Bundle.
             </xs:documentation>
             <xs:appinfo>
-                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplicationRef" />
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplication" />
             </xs:appinfo>
         </xs:annotation>
         <xs:complexType>
@@ -155,16 +155,31 @@
                     <xs:documentation>If set to "yes", the bundle can be pre-cached using the /cache command line argument.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="Theme" use="required">
+                <xs:annotation>
+                    <xs:documentation>The built-in theme to use.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="hyperlinkLargeLicense" />
+                        <xs:enumeration value="hyperlinkLicense" />
+                        <xs:enumeration value="hyperlinkSidebarLicense" />
+                        <xs:enumeration value="none" />
+                        <xs:enumeration value="rtfLargeLicense" />
+                        <xs:enumeration value="rtfLicense" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="WixManagedBootstrapperApplicationHost">
         <xs:annotation>
             <xs:documentation>
-                Configures the ManagedBootstrapperApplicationHost for a Bundle.
+                Uses WixManagedBootstrapperApplicationHost as the Bootstrapper Application for a Bundle.
             </xs:documentation>
             <xs:appinfo>
-                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplicationRef" />
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplication" />
             </xs:appinfo>
         </xs:annotation>
         <xs:complexType>
@@ -182,6 +197,17 @@
                 <xs:annotation>
                     <xs:documentation>Source file of the theme localization .wxl file.</xs:documentation>
                 </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Theme" default="standard">
+                <xs:annotation>
+                    <xs:documentation>The built-in theme to use.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="none" />
+                        <xs:enumeration value="standard" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -215,13 +241,13 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="WixDotNetCoreBootstrapperApplication">
+    <xs:element name="WixDotNetCoreBootstrapperApplicationHost">
         <xs:annotation>
             <xs:documentation>
-                Configures the DotNetCoreBootstrapperApplicationHost for a Bundle.
+                Uses WixDotNetCoreBootstrapperApplicationHost as the Bootstrapper Application for a Bundle.
             </xs:documentation>
             <xs:appinfo>
-                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplicationRef" />
+                <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplication" />
             </xs:appinfo>
         </xs:annotation>
         <xs:complexType>
@@ -244,9 +270,20 @@
                 <xs:annotation>
                     <xs:documentation>
                         Whether the .NET Core BA was published as self-contained (SCD).
-                        If using PublishTrimmed in the .NET Core project, there must be an item group with &lt;TrimmerRootAssembly Include="System.Runtime.Loader" /&gt;
+                        Trimming requires special configuration to work with WixDotNetCoreBootstrapperApplicationHost.
                     </xs:documentation>
                 </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Theme" default="standard">
+                <xs:annotation>
+                    <xs:documentation>The built-in theme to use.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:NMTOKEN">
+                        <xs:enumeration value="none" />
+                        <xs:enumeration value="standard" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -254,7 +291,7 @@
     <xs:attribute name="BAFactoryAssembly" type="YesNoType">
         <xs:annotation>
             <xs:documentation>
-                When set to "yes", DotNetCoreBootstrapperApplicationHost will load the DLL and instantiate the type with the BootstrapperApplicationFactoryAttribute.
+                When set to "yes", WixDotNetCoreBootstrapperApplicationHost will load the DLL and instantiate the type with the BootstrapperApplicationFactoryAttribute.
                 There must be corresponding deps.json and runtimeconfig.json files (set EnableDynamicLoading to True in the .NET Core project).
                 The .NET Core project must have been published, not just built.
                 Only one payload may be marked with this attribute set to "yes".
