@@ -1013,12 +1013,12 @@
           </xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="InstallCommand" type="xs:string">
+      <xs:attribute name="InstallArguments" type="xs:string">
         <xs:annotation>
           <xs:documentation>The command-line arguments provided to the ExePackage during install. If this attribute is absent the executable will be launched with no command-line arguments.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="RepairCommand" type="xs:string">
+      <xs:attribute name="RepairArguments" type="xs:string">
         <xs:annotation>
           <xs:documentation>
             The command-line arguments to specify to indicate a repair. If the executable package can be repaired but
@@ -1027,7 +1027,7 @@
           </xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="UninstallCommand" type="xs:string">
+      <xs:attribute name="UninstallArguments" type="xs:string">
         <xs:annotation>
           <xs:documentation>The command-line arguments provided to the ExePackage during uninstall. If this attribute is absent the executable will be launched with no command-line arguments. To prevent an ExePackage from being uninstalled set the Permanent attribute to "yes".</xs:documentation>
         </xs:annotation>
