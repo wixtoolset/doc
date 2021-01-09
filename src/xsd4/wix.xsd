@@ -955,10 +955,10 @@
       <xs:attribute name="DetectCondition" type="xs:string">
         <xs:annotation>
           <xs:documentation>
-            A condition that determines if the package is present on the target system. This condition can use built-in 
-            variables and variables returned by searches. This condition is necessary because Windows doesn't provide a 
-            method to detect the presence of an MsuPackage. Burn uses this condition to determine how to treat this 
-            package during a bundle action; for example, if this condition is false or omitted and the bundle is being 
+            A condition that determines if the package is present on the target system. This condition can use built-in
+            variables and variables returned by searches. This condition is necessary because Windows doesn't provide a
+            method to detect the presence of an MsuPackage. Burn uses this condition to determine how to treat this
+            package during a bundle action; for example, if this condition is false or omitted and the bundle is being
             installed, Burn will install this package.
           </xs:documentation>
         </xs:annotation>
@@ -1005,10 +1005,10 @@
       <xs:attribute name="DetectCondition" type="xs:string">
         <xs:annotation>
           <xs:documentation>
-            A condition that determines if the package is present on the target system. This condition can use built-in 
-            variables and variables returned by searches. This condition is necessary because Windows doesn't provide a 
-            method to detect the presence of an ExePackage. Burn uses this condition to determine how to treat this 
-            package during a bundle action; for example, if this condition is false or omitted and the bundle is being 
+            A condition that determines if the package is present on the target system. This condition can use built-in
+            variables and variables returned by searches. This condition is necessary because Windows doesn't provide a
+            method to detect the presence of an ExePackage. Burn uses this condition to determine how to treat this
+            package during a bundle action; for example, if this condition is false or omitted and the bundle is being
             installed, Burn will install this package.
           </xs:documentation>
         </xs:annotation>
@@ -1372,7 +1372,7 @@
         </xs:annotation>
       </xs:anyAttribute>
     </xs:complexType>
-  </xs:element>  
+  </xs:element>
   <xs:attributeGroup name="SearchCommonAttributes">
     <xs:attribute name="Id" type="xs:string">
       <xs:annotation>
@@ -1643,7 +1643,7 @@
   </xs:element>
   <xs:element name="PayloadGroup">
     <xs:annotation>
-      <xs:documentation>Describes a payload group to a bootstrapper. PayloadGroups referenced from within a Bundle are tied to the Bundle. 
+      <xs:documentation>Describes a payload group to a bootstrapper. PayloadGroups referenced from within a Bundle are tied to the Bundle.
                               PayloadGroups referenced from a Fragment are tied to the context of whatever references them such as an ExePackage or MsiPackage.
                               It is possible to share a PayloadGroup between multiple Packages and/or a Bundle by creating multiple references to it.</xs:documentation>
       <xs:appinfo>
@@ -1682,7 +1682,7 @@
   </xs:element>
   <xs:element name="RemotePayload">
     <xs:annotation>
-      <xs:documentation>Describes information about a remote file payload that is not available at the time of building the bundle. 
+      <xs:documentation>Describes information about a remote file payload that is not available at the time of building the bundle.
       The parent must specify DownloadUrl and must not specify SourceFile when using this element.</xs:documentation>
       <xs:appinfo>
         <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="ExePackage" />
@@ -3445,7 +3445,7 @@
         <xs:annotation>
           <xs:documentation>
             The list of platforms supported by the package. This attribute has been deprecated.
-            Specify the -arch switch at the candle.exe command line or the InstallerPlatform 
+            Specify the -arch switch at the candle.exe command line or the InstallerPlatform
             property in a .wixproj MSBuild project.
           </xs:documentation>
         </xs:annotation>
@@ -3454,7 +3454,7 @@
         <xs:annotation>
           <xs:documentation>
             The platform supported by the package. Use of this attribute is discouraged; instead,
-            specify the -arch switch at the candle.exe command line or the InstallerPlatform 
+            specify the -arch switch at the candle.exe command line or the InstallerPlatform
             property in a .wixproj MSBuild project.
           </xs:documentation>
         </xs:annotation>
@@ -4359,8 +4359,8 @@
         <xs:annotation>
           <xs:documentation>Instructs the search to look in the 64-bit registry when the value is 'yes'. When the value is 'no', the search looks in the 32-bit registry.
           The default value is based on the platform set by the -arch switch to candle.exe
-          or the InstallerPlatform property in a .wixproj MSBuild project: 
-          For x86 and ARM, the default value is 'no'. 
+          or the InstallerPlatform property in a .wixproj MSBuild project:
+          For x86 and ARM, the default value is 'no'.
           For x64 and IA64, the default value is 'yes'.
           </xs:documentation>
         </xs:annotation>
@@ -5357,7 +5357,7 @@
       <xs:attribute name="Action">
         <xs:annotation>
           <xs:documentation>
-                        The Action attribute has been deprecated. In most cases, you can simply omit @Action. If you need to force Windows Installer 
+                        The Action attribute has been deprecated. In most cases, you can simply omit @Action. If you need to force Windows Installer
                         to create an empty key or recursively delete the key, use the ForceCreateOnInstall or ForceDeleteOnUninstall attributes instead.
                     </xs:documentation>
         </xs:annotation>
@@ -7937,8 +7937,8 @@
                         the installation of packages that include both 32-bit and 64-bit components. If this is a 64-bit
                         component replacing a 32-bit component, set this attribute to 'yes' and assign a new GUID in the Guid attribute.
           The default value is based on the platform set by the -arch switch to candle.exe
-          or the InstallerPlatform property in a .wixproj MSBuild project: 
-          For x86 and ARM, the default value is 'no'. 
+          or the InstallerPlatform property in a .wixproj MSBuild project:
+          For x86 and ARM, the default value is 'no'.
           For x64 and IA64, the default value is 'yes'.
           </xs:documentation>
         </xs:annotation>
@@ -7991,7 +7991,7 @@
       <xs:attribute name="Source" type="xs:string">
         <xs:annotation>
           <xs:documentation>
-            Used to set the default file system source for child Component elements. For more information, see 
+            Used to set the default file system source for child Component elements. For more information, see
             <html:a href="~/howtos/general/specifying_source_files.html">Specifying source files</html:a>.
           </xs:documentation>
         </xs:annotation>
@@ -8972,7 +8972,7 @@
   <xs:element name="MediaTemplate">
     <xs:annotation>
       <xs:documentation>
-                MediaTeplate element describes information to automatically assign files to cabinets. 
+                MediaTeplate element describes information to automatically assign files to cabinets.
                 A maximumum number of cabinets created is 999.
             </xs:documentation>
     </xs:annotation>
@@ -8980,17 +8980,17 @@
       <xs:attribute name="CabinetTemplate" type="xs:string">
         <xs:annotation>
           <xs:documentation>
-                        Templated name of the cabinet if some or all of the files stored on the media are in 
-                        a cabinet file. This name must begin with either a letter or an underscore, contain 
+                        Templated name of the cabinet if some or all of the files stored on the media are in
+                        a cabinet file. This name must begin with either a letter or an underscore, contain
                         maximum of five characters and {0} in the cabinet name part and must end three character extension.
-                        The default is cab{0}.cab. 
+                        The default is cab{0}.cab.
                     </xs:documentation>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="CompressionLevel">
         <xs:annotation>
           <xs:documentation>
-                        Indicates the compression level for the Media's cabinet. This attribute can 
+                        Indicates the compression level for the Media's cabinet. This attribute can
                         only be used in conjunction with the Cabinet attribute. The default is 'mszip'.
                     </xs:documentation>
         </xs:annotation>
@@ -9008,7 +9008,7 @@
         <xs:annotation>
           <xs:documentation>
                         The disk name, which is usually the visible text printed on the disk. This localizable text is used
-                        to prompt the user when this disk needs to be inserted. This value will be used in the "[1]" of the 
+                        to prompt the user when this disk needs to be inserted. This value will be used in the "[1]" of the
                         DiskPrompt Property. Using this attribute will require you to define a DiskPrompt Property.
                     </xs:documentation>
         </xs:annotation>
@@ -9021,19 +9021,19 @@
       <xs:attribute name="VolumeLabel" type="xs:string">
         <xs:annotation>
           <xs:documentation>
-                        The label attributed to the volume. This is the volume label returned 
-                        by the GetVolumeInformation function. If the SourceDir property refers 
-                        to a removable (floppy or CD-ROM) volume, then this volume label is 
-                        used to verify that the proper disk is in the drive before attempting 
-                        to install files. The entry in this column must match the volume label 
-                        of the physical media. 
+                        The label attributed to the volume. This is the volume label returned
+                        by the GetVolumeInformation function. If the SourceDir property refers
+                        to a removable (floppy or CD-ROM) volume, then this volume label is
+                        used to verify that the proper disk is in the drive before attempting
+                        to install files. The entry in this column must match the volume label
+                        of the physical media.
                     </xs:documentation>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="MaximumUncompressedMediaSize" type="xs:int">
         <xs:annotation>
           <xs:documentation>
-                        Size of uncompressed files in each cabinet, in megabytes. WIX_MUMS environment variable 
+                        Size of uncompressed files in each cabinet, in megabytes. WIX_MUMS environment variable
                         can be used to override this value. Default value is 200 MB.
                     </xs:documentation>
         </xs:annotation>
@@ -9041,13 +9041,13 @@
       <xs:attribute name="MaximumCabinetSizeForLargeFileSplitting" type="xs:int">
         <xs:annotation>
           <xs:documentation>
-                        Maximum size of cabinet files in megabytes for large files. This attribute is used for packaging 
-                        files that are larger than MaximumUncompressedMediaSize into smaller cabinets. If cabinet size 
-                        exceed this value, then setting this attribute will cause the file to be split into multiple 
-                        cabinets of this maximum size. For simply controlling cabinet size without file splitting use 
-                        MaximumUncompressedMediaSize attribute. Setting this attribute will disable smart cabbing feature 
-                        for this Fragment / Product. Setting WIX_MCSLFS environment variable can be used to override this 
-                        value. Minimum allowed value of this attribute is 20 MB. Maximum allowed value and the Default 
+                        Maximum size of cabinet files in megabytes for large files. This attribute is used for packaging
+                        files that are larger than MaximumUncompressedMediaSize into smaller cabinets. If cabinet size
+                        exceed this value, then setting this attribute will cause the file to be split into multiple
+                        cabinets of this maximum size. For simply controlling cabinet size without file splitting use
+                        MaximumUncompressedMediaSize attribute. Setting this attribute will disable smart cabbing feature
+                        for this Fragment / Product. Setting WIX_MCSLFS environment variable can be used to override this
+                        value. Minimum allowed value of this attribute is 20 MB. Maximum allowed value and the Default
                         value of this attribute is 2048 MB (2 GB).
                     </xs:documentation>
         </xs:annotation>
@@ -9372,8 +9372,8 @@
                                 Specifies that a script custom action targets a 64-bit platform. Valid only when used with
                                 the Script, VBScriptCall, and JScriptCall attributes.
           The default value is based on the platform set by the -arch switch to candle.exe
-          or the InstallerPlatform property in a .wixproj MSBuild project: 
-          For x86 and ARM, the default value is 'no'. 
+          or the InstallerPlatform property in a .wixproj MSBuild project:
+          For x86 and ARM, the default value is 'no'.
           For x64 and IA64, the default value is 'yes'.
               </xs:documentation>
             </xs:annotation>
@@ -9478,7 +9478,7 @@
                                 For 'execute', the assignment is scheduled in the InstallExecuteSequence.
                                 For 'ui', the assignment is scheduled in the InstallUISequence.
                                 For 'first', the assignment is scheduled in the InstallUISequence or the InstallExecuteSequence if the InstallUISequence is skipped at install time.
-                                For 'both', the assignment is scheduled in both the InstallUISequence and the InstallExecuteSequence. 
+                                For 'both', the assignment is scheduled in both the InstallUISequence and the InstallExecuteSequence.
                                 The default is 'both'.
                             </xs:documentation>
             </xs:annotation>
@@ -9558,7 +9558,7 @@
                                 For 'execute', the assignment is scheduled in the InstallExecuteSequence.
                                 For 'ui', the assignment is scheduled in the InstallUISequence.
                                 For 'first', the assignment is scheduled in the InstallUISequence or the InstallExecuteSequence if the InstallUISequence is skipped at install time.
-                                For 'both', the assignment is scheduled in both the InstallUISequence and the InstallExecuteSequence. 
+                                For 'both', the assignment is scheduled in both the InstallUISequence and the InstallExecuteSequence.
                                 The default is 'both'.
                             </xs:documentation>
             </xs:annotation>
@@ -13259,7 +13259,7 @@
   </xs:simpleType>
   <xs:simpleType name="ExitType">
     <xs:annotation>
-      <xs:documentation>Value indicates that this action is executed if the installer returns the associated exit type. Each exit type can be used with no more than one action. 
+      <xs:documentation>Value indicates that this action is executed if the installer returns the associated exit type. Each exit type can be used with no more than one action.
                         Multiple actions can have exit types assigned, but every action and exit type must be different. Exit types are typically used with dialog boxes.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:NMTOKEN">
