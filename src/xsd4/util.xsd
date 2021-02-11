@@ -1052,6 +1052,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:attributeGroup ref="SearchCommonAttributes" />
+      <xs:attribute name="Bitness" type="BitnessTypeUnion">
+        <xs:annotation>
+          <xs:documentation>
+            Overrides the default registry to search. The value `always64` will force
+            the search to look in the 64-bit registry even when building for 32-bit.
+            Simliarly, the value `always32` will force the search to look in the 32-bit
+            registry even when building for 64-bit.
+            The default value is `default` where the search will look in the same registry
+            as the bitness of the package.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
       <xs:attribute name="Root" use="required">
         <xs:annotation>
           <xs:documentation>Registry root hive to search under.</xs:documentation>
@@ -1118,31 +1130,26 @@
       <xs:attribute name="Result">
         <xs:annotation>
           <xs:documentation>
-                        Rather than saving the matching registry value into the variable, a RegistrySearch can save an attribute of the matching entry instead.
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:NMTOKEN">
-                        <xs:enumeration value="exists">
-                            <xs:annotation>
-                                <xs:documentation>Saves true if a matching registry entry is found; false otherwise.</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="value">
-                            <xs:annotation>
-                                <xs:documentation>Saves the value of the registry key in the variable. This is the default.</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="Win64" type="YesNoType">
-                <xs:annotation>
-                    <xs:documentation>Instructs the search to look in the 64-bit registry when the value is 'yes'. When the value is 'no', the search looks in the 32-bit registry. The default value is 'no'.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
+                  Rather than saving the matching registry value into the variable, a RegistrySearch can save an attribute of the matching entry instead.
+              </xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+              <xs:restriction base="xs:NMTOKEN">
+                  <xs:enumeration value="exists">
+                      <xs:annotation>
+                          <xs:documentation>Saves true if a matching registry entry is found; false otherwise.</xs:documentation>
+                      </xs:annotation>
+                  </xs:enumeration>
+                  <xs:enumeration value="value">
+                      <xs:annotation>
+                          <xs:documentation>Saves the value of the registry key in the variable. This is the default.</xs:documentation>
+                      </xs:annotation>
+                  </xs:enumeration>
+              </xs:restriction>
+          </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RegistrySearchRef">
     <xs:annotation>
       <xs:documentation>References a RegistrySearch.</xs:documentation>
@@ -1730,6 +1737,22 @@
       </xs:annotation>
     </xs:attribute>
   </xs:attributeGroup>
+  <xs:simpleType name="BitnessTypeUnion">
+    <xs:annotation>
+      <xs:documentation>Values of this type will be "default", "always32" or "always64".</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="BitnessType PreprocessorVariables"/>
+  </xs:simpleType>
+  <xs:simpleType name="BitnessType">
+    <xs:annotation>
+      <xs:documentation>Values of this type will be "default", "always32" or "always64".</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="default" />
+      <xs:enumeration value="always32" />
+      <xs:enumeration value="always64" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="YesNoType">
     <xs:annotation>
       <xs:documentation>Values of this type will either be "yes" or "no".</xs:documentation>

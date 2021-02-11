@@ -289,12 +289,15 @@
           </xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="Win64" type="YesNoTypeUnion">
+      <xs:attribute name="Bitness" type="BitnessTypeUnion">
         <xs:annotation>
           <xs:documentation>
-            Instructs the search to look in the 64-bit registry when the value is `yes`.
-            When the value is `no`, the search looks in the 32-bit registry.
-            The default value is `no`.
+            Overrides the default registry to search. The value `always64` will force
+            the search to look in the 64-bit registry even when building for 32-bit.
+            Simliarly, the value `always32` will force the search to look in the 32-bit
+            registry even when building for 64-bit.
+            The default value is `default` where the search will look in the same registry
+            as the bitness of the package.
           </xs:documentation>
         </xs:annotation>
       </xs:attribute>
@@ -4277,6 +4280,18 @@
           <xs:documentation>Signature to be used for the file, directory or registry key being searched for.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
+      <xs:attribute name="Bitness" type="BitnessTypeUnion">
+        <xs:annotation>
+          <xs:documentation>
+            Overrides the default registry to search. The value `always64` will force
+            the search to look in the 64-bit registry even when building for 32-bit.
+            Simliarly, the value `always32` will force the search to look in the 32-bit
+            registry even when building for 64-bit.
+            The default value is `default` where the search will look in the same registry
+            as the bitness of the package.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
       <xs:attribute name="Root" use="required">
         <xs:annotation>
           <xs:documentation>Root key for the registry value.</xs:documentation>
@@ -4354,16 +4369,6 @@
             </xs:enumeration>
           </xs:restriction>
         </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="Win64" type="YesNoTypeUnion">
-        <xs:annotation>
-          <xs:documentation>Instructs the search to look in the 64-bit registry when the value is 'yes'. When the value is 'no', the search looks in the 32-bit registry.
-          The default value is based on the platform set by the -arch switch to candle.exe
-          or the InstallerPlatform property in a .wixproj MSBuild project:
-          For x86 and ARM, the default value is 'no'.
-          For x64 and IA64, the default value is 'yes'.
-          </xs:documentation>
-        </xs:annotation>
       </xs:attribute>
     </xs:complexType>
   </xs:element>
@@ -7930,16 +7935,16 @@
                     </xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="Win64" type="YesNoTypeUnion">
+      <xs:attribute name="Bitness" type="BitnessTypeUnion">
         <xs:annotation>
           <xs:documentation>
-                        Set this attribute to 'yes' to mark this as a 64-bit component. This attribute facilitates
-                        the installation of packages that include both 32-bit and 64-bit components. If this is a 64-bit
-                        component replacing a 32-bit component, set this attribute to 'yes' and assign a new GUID in the Guid attribute.
-          The default value is based on the platform set by the -arch switch to candle.exe
-          or the InstallerPlatform property in a .wixproj MSBuild project:
-          For x86 and ARM, the default value is 'no'.
-          For x64 and IA64, the default value is 'yes'.
+            Overrides the default Component bitness. Only 64-bit Components an install to 64-bit locations such
+            as `ProgramFiles64Folder` and the 64-bit registry. The value `always64` will force the Component
+            bitness to be 64-bit and cannot be included in 32-bit packages.
+            Simliarly, the value `always32` will force the Component bitness to 32-bit and can be included in
+            32-bit or 64-bit packages.
+            The default value is `default` where the Component will be installed using the
+            same bitness as the package.
           </xs:documentation>
         </xs:annotation>
       </xs:attribute>
@@ -9366,15 +9371,15 @@
                             </xs:documentation>
             </xs:annotation>
           </xs:attribute>
-          <xs:attribute name="Win64" type="YesNoTypeUnion">
+          <xs:attribute name="Bitness" type="BitnessTypeUnion">
             <xs:annotation>
               <xs:documentation>
-                                Specifies that a script custom action targets a 64-bit platform. Valid only when used with
-                                the Script, VBScriptCall, and JScriptCall attributes.
-          The default value is based on the platform set by the -arch switch to candle.exe
-          or the InstallerPlatform property in a .wixproj MSBuild project:
-          For x86 and ARM, the default value is 'no'.
-          For x64 and IA64, the default value is 'yes'.
+                Valid only when used with the Script, VBScriptCall, and JScriptCall attributes.
+                Overrides the default scripting host for script custom actions. The value `always64` will force the
+                script to run in the 64-bit scripting host. Simliarly, the value `always32` will force the script
+                to run in the 64-bit scripting host.
+                The default value is `default` where the script will be run in the scripting host that matches the
+                same bitness as the package.
               </xs:documentation>
             </xs:annotation>
           </xs:attribute>
@@ -13044,6 +13049,22 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[{(]?[0-9A-Fa-f]{8}\-?[0-9A-Fa-f]{4}\-?[0-9A-Fa-f]{4}\-?[0-9A-Fa-f]{4}\-?[0-9A-Fa-f]{12}[})]?|[{(]?\?{8}\-\?{4}\-\?{4}\-\?{4}\-\?{12}[})]?|PUT\-GUID\-(\d+\-)?HERE|([!$])(\(var|\(loc|\(wix)\.[_A-Za-z][0-9A-Za-z_.]*\)|\*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="BitnessTypeUnion">
+    <xs:annotation>
+      <xs:documentation>Values of this type will be "default", "always32" or "always64".</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="BitnessType PreprocessorVariables"/>
+  </xs:simpleType>
+  <xs:simpleType name="BitnessType">
+    <xs:annotation>
+      <xs:documentation>Values of this type will be "default", "always32" or "always64".</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="default" />
+      <xs:enumeration value="always32" />
+      <xs:enumeration value="always64" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="BurnContainerType">
