@@ -1928,7 +1928,6 @@
           <xs:element ref="EnsureTable" />
           <xs:element ref="Exclusion" />
           <xs:element ref="Icon" />
-          <xs:element ref="IgnoreModularization" />
           <xs:element ref="IgnoreTable" />
           <xs:element ref="Property" />
           <xs:element ref="PropertyRef" />
@@ -2195,7 +2194,6 @@
         <xs:element ref="FeatureGroup" />
         <xs:element ref="FeatureRef" />
         <xs:element ref="Icon" />
-        <xs:element ref="IgnoreModularization" />
         <xs:element ref="Media" />
         <xs:element ref="MediaTemplate" />
         <xs:element ref="PackageGroup" />
@@ -3114,23 +3112,9 @@
           <xs:documentation>Full path to location of msi file for upgraded image.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="SourceFile" />
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
       <xs:attribute name="SourcePatch" type="xs:string">
         <xs:annotation>
           <xs:documentation>Modified copy of the upgraded installation database that contains additional authoring specific to patching.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="srcPatch" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="SourcePatch" />
-          </xs:appinfo>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -3152,13 +3136,6 @@
       <xs:attribute name="SourceFile" type="xs:string">
         <xs:annotation>
           <xs:documentation>Full path to the location of the msi file for the target image.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="SourceFile" />
-          </xs:appinfo>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="Order" type="xs:int" use="required">
@@ -3266,13 +3243,6 @@
       <xs:attribute name="Source" type="xs:string">
         <xs:annotation>
           <xs:documentation>Full path of the external file.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="Source" />
-          </xs:appinfo>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="Order" type="xs:int" use="required">
@@ -5263,13 +5233,6 @@
           <xs:documentation>Specifies the path to the File in the build process. Overrides default source path set by parent directories and Name attribute. This attribute must be set if no source information can be gathered from parent directories. For more information, see <html:a href="~/howtos/general/specifying_source_files.html">Specifying source files</html:a>.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="Source" />
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
       <xs:attribute name="PatchGroup" type="xs:integer">
         <xs:annotation>
           <xs:documentation>
@@ -6170,13 +6133,6 @@
           <xs:documentation>The sequence of the commands. Only verbs for which the Sequence is specified
                 are used to prepare an ordered list for the default value of the shell key. The Verb with the lowest value in this
                 column becomes the default verb. Used only for Advertised verbs.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="Target" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="TargetFile" />
-          </xs:appinfo>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="TargetFile" type="xs:string">
@@ -8181,13 +8137,6 @@
           <xs:documentation>Path to the source location of the merge module.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="SourceFile" />
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
     </xs:complexType>
   </xs:element>
   <xs:element name="MergeRef">
@@ -8352,13 +8301,6 @@
                     </xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="FileSource" />
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
       <xs:anyAttribute namespace="##other" processContents="lax">
         <xs:annotation>
           <xs:documentation>
@@ -8409,13 +8351,6 @@
       <xs:attribute name="FileSource" type="xs:string">
         <xs:annotation>
           <xs:documentation>Used to set the file system source for this DirectoryRef's child elements. For more information, see <html:a href="~/howtos/general/specifying_source_files.html">Specifying source files</html:a>.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="FileSource" />
-          </xs:appinfo>
         </xs:annotation>
       </xs:attribute>
       <xs:anyAttribute namespace="##other" processContents="lax">
@@ -8940,13 +8875,6 @@
                     </xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="Layout" />
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
       <xs:attribute name="VolumeLabel" type="xs:string">
         <xs:annotation>
           <xs:documentation>
@@ -9056,37 +8984,6 @@
                         value of this attribute is 2048 MB (2 GB).
                     </xs:documentation>
         </xs:annotation>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="IgnoreModularization">
-    <xs:annotation>
-      <xs:documentation>
-                This element has been deprecated.
-                Use the Binary/@SuppressModularization, CustomAction/@SuppressModularization, or Property/@SuppressModularization attributes instead.
-            </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:attribute name="Name" use="required" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>
-                        The name of the item to ignore modularization for.
-                    </xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="Type">
-        <xs:annotation>
-          <xs:documentation>
-                        The type of the item to ignore modularization for.
-                    </xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:NMTOKEN">
-            <xs:enumeration value="Action" />
-            <xs:enumeration value="Property" />
-            <xs:enumeration value="Directory" />
-          </xs:restriction>
-        </xs:simpleType>
       </xs:attribute>
     </xs:complexType>
   </xs:element>
@@ -11036,13 +10933,6 @@
           <xs:documentation>Path to the binary file.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="SourceFile" />
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:attribute>
       <xs:attribute name="SuppressModularization" type="YesNoTypeUnion">
         <xs:annotation>
           <xs:documentation>
@@ -11080,13 +10970,6 @@
       <xs:attribute name="SourceFile" type="xs:string">
         <xs:annotation>
           <xs:documentation>Path to the icon file.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="src" type="xs:string">
-        <xs:annotation>
-          <xs:appinfo>
-            <xse:deprecated ref="SourceFile" />
-          </xs:appinfo>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -11467,13 +11350,6 @@
           <xs:attribute name="SourceFile" type="xs:string">
             <xs:annotation>
               <xs:documentation>Instructs the text to be imported from a file instead of the element value during the binding process.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
-          <xs:attribute name="src" type="xs:string">
-            <xs:annotation>
-              <xs:appinfo>
-                <xse:deprecated ref="SourceFile" />
-              </xs:appinfo>
             </xs:annotation>
           </xs:attribute>
         </xs:extension>
