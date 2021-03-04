@@ -344,26 +344,6 @@
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  <xs:element name="Catalog">
-    <xs:annotation>
-      <xs:documentation>Specify one or more catalog files that will be used to verify the contents of the bundle.</xs:documentation>
-      <xs:appinfo>
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Bundle" />
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:attribute name="Id" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>The identifier of the catalog element.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="SourceFile" type="xs:string">
-        <xs:annotation>
-          <xs:documentation>The catalog file</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="BootstrapperApplicationDll">
     <xs:annotation>
       <xs:documentation>Describes the entry point to the bootstrapper application.</xs:documentation>
@@ -384,14 +364,23 @@
           <xs:documentation>The identifier of BootstrapperApplicationDll element.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="SourceFile" type="xs:string" use="required">
+      <xs:attribute name="SourceFile" type="xs:string">
         <xs:annotation>
-          <xs:documentation>Location of the source file.</xs:documentation>
+          <xs:documentation>
+            Location of the source file.
+            The default value is the Name attribute, if provided.
+            At a minimum, the SourceFile or Name attribute must be specified.
+          </xs:documentation>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="Name" type="xs:string">
         <xs:annotation>
-          <xs:documentation>The destination path and file name for this payload. The default is the source file name. The use of '..' directories is not allowed.</xs:documentation>
+          <xs:documentation>
+            The destination path and file name for this payload.
+            The default is the source file name.
+            At a minimum, the Name or SourceFile attribute must be specified.
+            This must be a relative path ('\foo' or 'C:\foo' is not allowed).
+          </xs:documentation>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="DpiAwareness" default="perMonitorV2">
@@ -667,14 +656,23 @@
           <xs:documentation>The identifier of the BundleExtension element. Only required if you want to reference this element using a BundleExtensionRef element.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="SourceFile" type="xs:string" use="required">
+      <xs:attribute name="SourceFile" type="xs:string">
         <xs:annotation>
-          <xs:documentation>The DLL with the bundle extension entry function.</xs:documentation>
+          <xs:documentation>
+            The DLL with the bundle extension entry function.
+            The default value is the Name attribute, if provided.
+            At a minimum, the SourceFile or Name attribute must be specified.
+          </xs:documentation>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="Name" type="xs:string">
         <xs:annotation>
-          <xs:documentation>The relative destination path and file name for the bundle extension DLL. The default is the source file name. Use this attribute to rename the bundle extension DLL or extract it into a subfolder. The use of `..` directories is not allowed.</xs:documentation>
+          <xs:documentation>
+            The relative destination path and file name for the bundle extension DLL.
+            The default is the source file name. Use this attribute to rename the bundle extension DLL or extract it into a subfolder.
+            At a minimum, the Name or SourceFile attribute must be specified.
+            This must be a relative path ('\foo' or 'C:\foo' is not allowed).
+          </xs:documentation>
         </xs:annotation>
       </xs:attribute>
     </xs:complexType>
@@ -826,10 +824,6 @@
   <xs:element name="MsiPackage">
     <xs:annotation>
       <xs:documentation>Describes a single msi package to install.</xs:documentation>
-      <xs:appinfo>
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Chain" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="PackageGroup" />
-      </xs:appinfo>
     </xs:annotation>
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -837,6 +831,7 @@
         <xs:element ref="SlipstreamMsp" />
         <xs:element ref="Payload" />
         <xs:element ref="PayloadGroupRef" />
+        <xs:element ref="MsiPackagePayload" />
         <xs:any namespace="##other" processContents="lax">
           <xs:annotation>
             <xs:documentation>
@@ -892,8 +887,6 @@
       <xs:documentation>Describes a single msp package to install.</xs:documentation>
       <xs:appinfo>
         <xse:seeAlso ref="SlipstreamMsp" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Chain" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="PackageGroup" />
       </xs:appinfo>
     </xs:annotation>
     <xs:complexType>
@@ -901,6 +894,7 @@
         <xs:element ref="MsiProperty" />
         <xs:element ref="Payload" />
         <xs:element ref="PayloadGroupRef" />
+        <xs:element ref="MspPackagePayload" />
         <xs:any namespace="##other" processContents="lax">
           <xs:annotation>
             <xs:documentation>
@@ -932,16 +926,12 @@
   <xs:element name="MsuPackage">
     <xs:annotation>
       <xs:documentation>Describes a single msu package to install.</xs:documentation>
-      <xs:appinfo>
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Chain" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="PackageGroup" />
-      </xs:appinfo>
     </xs:annotation>
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="Payload" />
         <xs:element ref="PayloadGroupRef" />
-        <xs:element ref="RemotePayload" />
+        <xs:element ref="MsuPackagePayload" />
         <xs:any namespace="##other" processContents="lax">
           <xs:annotation>
             <xs:documentation>
@@ -980,16 +970,12 @@
   <xs:element name="ExePackage">
     <xs:annotation>
       <xs:documentation>Describes a single exe package to install.</xs:documentation>
-      <xs:appinfo>
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Chain" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="PackageGroup" />
-      </xs:appinfo>
     </xs:annotation>
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="Payload" />
         <xs:element ref="PayloadGroupRef" />
-        <xs:element ref="RemotePayload" />
+        <xs:element ref="ExePackagePayload" />
         <xs:element ref="ExitCode" />
         <xs:element ref="CommandLine" />
         <xs:any namespace="##other" processContents="lax">
@@ -1099,8 +1085,10 @@
     <xs:attribute name="SourceFile" type="xs:string">
       <xs:annotation>
         <xs:documentation>
-            Location of the package to add to the bundle. The default value is the Name attribute, if provided.
+            Location of the package to add to the bundle.
+            The default value is the Name attribute, if provided.
             At a minimum, the SourceFile or Name attribute must be specified.
+            Must not be specified if the package payload is given by the *PackagePayload element.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -1110,7 +1098,8 @@
             The destination path and file name for this chain payload. Use this attribute to rename the
             chain entry point or extract it into a subfolder. The default value is the file name from the
             SourceFile attribute, if provided. At a minimum, the Name or SourceFile attribute must be specified.
-            The use of '..' directories is not allowed.
+            This must be a relative path ('\foo' or 'C:\foo' is not allowed).
+            Must not be specified if the package payload is given by the *PackagePayload element.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -1123,6 +1112,7 @@
           <html:li>{1} is replaced by the payload Id.</html:li>
           <html:li>{2} is replaced by the payload file name.</html:li>
           </html:ul>
+          Must not be specified if the package payload is given by the *PackagePayload element.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -1222,16 +1212,9 @@
     </xs:attribute>
     <xs:attribute name="Compressed" type="YesNoDefaultTypeUnion">
       <xs:annotation>
-        <xs:documentation>Whether the package payload should be embedded in a container or left as an external payload.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
-    <xs:attribute name="EnableSignatureVerification" type="YesNoTypeUnion">
-      <xs:annotation>
         <xs:documentation>
-          By default, a Bundle will use the hash of a package to verify its contents. If this attribute is set to "yes"
-          and the package is signed with an Authenticode signature the Bundle will verify the contents of the package using the
-          signature instead. Beware that there are many real world issues with Windows verifying Authenticode signatures.
-          Since the Authenticode signatures are no more secure than hashing the packages directly, the default is "no".
+          Whether the package payload should be embedded in a container or left as an external payload.
+          Must not be specified if the package payload is given by the *PackagePayload element.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -1582,14 +1565,6 @@
   <xs:element name="Payload">
     <xs:annotation>
       <xs:documentation>Describes a payload to a bootstrapper.</xs:documentation>
-      <xs:appinfo>
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplication" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="ExePackage" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="MsiPackage" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="MspPackage" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="MsuPackage" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="UX" />
-      </xs:appinfo>
     </xs:annotation>
     <xs:complexType>
       <xs:attribute name="Id" type="xs:string">
@@ -1602,14 +1577,23 @@
           <xs:documentation>Whether the payload should be embedded in a container or left as an external payload.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="SourceFile" type="xs:string" use="required">
+      <xs:attribute name="SourceFile" type="xs:string">
         <xs:annotation>
-          <xs:documentation>Location of the source file.</xs:documentation>
+          <xs:documentation>
+            Location of the source file.
+            The default value is the Name attribute, if provided.
+            At a minimum, the SourceFile or Name attribute must be specified.
+          </xs:documentation>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="Name" type="xs:string">
         <xs:annotation>
-          <xs:documentation>The destination path and file name for this payload. The default is the source file name. The use of '..' directories is not allowed.</xs:documentation>
+          <xs:documentation>
+            The destination path and file name for this payload.
+            The default is the source file name.
+            At a minimum, the Name or SourceFile attribute must be specified.
+            This must be a relative path ('\foo' or 'C:\foo' is not allowed).
+          </xs:documentation>
         </xs:annotation>
       </xs:attribute>
       <xs:attribute name="DownloadUrl" type="xs:string">
@@ -1624,16 +1608,6 @@
         </xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="EnableSignatureVerification" type="YesNoTypeUnion">
-        <xs:annotation>
-          <xs:documentation>
-            By default, a Bundle will use the hash of a package to verify its contents. If this attribute is set to "yes"
-            and the package is signed with an Authenticode signature the Bundle will verify the contents of the package using the
-            signature instead. Beware that there are many real world issues with Windows verifying Authenticode signatures.
-            Since the Authenticode signatures are no more secure than hashing the packages directly, the default is "no".
-          </xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
       <xs:anyAttribute namespace="##other" processContents="lax">
         <xs:annotation>
           <xs:documentation>
@@ -1646,16 +1620,19 @@
   </xs:element>
   <xs:element name="PayloadGroup">
     <xs:annotation>
-      <xs:documentation>Describes a payload group to a bootstrapper. PayloadGroups referenced from within a Bundle are tied to the Bundle.
-                              PayloadGroups referenced from a Fragment are tied to the context of whatever references them such as an ExePackage or MsiPackage.
-                              It is possible to share a PayloadGroup between multiple Packages and/or a Bundle by creating multiple references to it.</xs:documentation>
-      <xs:appinfo>
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="Fragment" />
-      </xs:appinfo>
+      <xs:documentation>
+        Describes a payload group to a bootstrapper. PayloadGroups referenced from within a Bundle are tied to the Bundle.
+        PayloadGroups referenced from a Fragment are tied to the context of whatever references them such as an ExePackage or MsiPackage.
+        It is possible to share a PayloadGroup between multiple Packages and/or a Bundle by creating multiple references to it.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="Payload" />
+        <xs:element ref="ExePackagePayload" />
+        <xs:element ref="MsiPackagePayload" />
+        <xs:element ref="MspPackagePayload" />
+        <xs:element ref="MsuPackagePayload" />
         <xs:element ref="PayloadGroupRef" />
       </xs:choice>
       <xs:attribute name="Id" type="xs:string" use="required">
@@ -1670,9 +1647,6 @@
       <xs:documentation>Create a reference to PayloadGroup element that exists inside a Bundle or Fragment element.</xs:documentation>
       <xs:appinfo>
         <xse:seeAlso ref="PayloadGroup" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="BootstrapperApplication" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="UX" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="PayloadGroup" />
       </xs:appinfo>
     </xs:annotation>
     <xs:complexType>
@@ -1683,53 +1657,164 @@
       </xs:attribute>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RemotePayload">
+  <xs:element name="ExePackagePayload">
     <xs:annotation>
-      <xs:documentation>Describes information about a remote file payload that is not available at the time of building the bundle.
-      The parent must specify DownloadUrl and must not specify SourceFile when using this element.</xs:documentation>
-      <xs:appinfo>
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="ExePackage" />
-        <xse:parent namespace="http://wixtoolset.org/schemas/v4/wxs" ref="MsuPackage" />
-      </xs:appinfo>
+      <xs:documentation>
+        Describes information about the ExePackage payload.
+        Cannot be specified if the owning ExePackage specified any of SourceFile, Name, DownloadUrl, or Compressed.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attribute name="CertificatePublicKey" type="HexType">
-        <xs:annotation>
-          <xs:documentation>Public key of the authenticode certificate used to sign the RemotePayload. Include this attribute if the remote file is signed.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="CertificateThumbprint" type="HexType">
-        <xs:annotation>
-          <xs:documentation>Thumbprint of the authenticode certificate used to sign the RemotePayload. Include this attribute if the remote file is signed.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="Description" type="xs:string" use="required">
-        <xs:annotation>
-          <xs:documentation>Description of the file from version resources.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="Hash" type="HexType" use="required">
-        <xs:annotation>
-          <xs:documentation>SHA-1 hash of the RemotePayload. Include this attribute if the remote file is unsigned or SuppressSignatureVerification is set to Yes.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="ProductName" type="xs:string" use="required">
-        <xs:annotation>
-        <xs:documentation>Product name of the file from version resouces.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="Size" type="xs:integer" use="required">
-        <xs:annotation>
-          <xs:documentation>Size of the remote file in bytes.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="Version" type="VersionType" use="required">
-        <xs:annotation>
-          <xs:documentation>Version of the remote file</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
+      <xs:attributeGroup ref="ChainPackagePayloadCommonAttributes" />
+      <xs:attributeGroup ref="RemotePackagePayloadCommonAttributes" />
     </xs:complexType>
   </xs:element>
+  <xs:element name="MsiPackagePayload">
+    <xs:annotation>
+      <xs:documentation>
+        Describes information about the MsiPackage payload.
+        Cannot be specified if the owning MsiPackage specified any of SourceFile, Name, DownloadUrl, or Compressed.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="ChainPackagePayloadCommonAttributes" />
+      <xs:attributeGroup ref="LocalPackagePayloadCommonAttributes" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MspPackagePayload">
+    <xs:annotation>
+      <xs:documentation>
+        Describes information about the MspPackage payload.
+        Cannot be specified if the owning MspPackage specified any of SourceFile, Name, DownloadUrl, or Compressed.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="ChainPackagePayloadCommonAttributes" />
+      <xs:attributeGroup ref="LocalPackagePayloadCommonAttributes" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MsuPackagePayload">
+    <xs:annotation>
+      <xs:documentation>
+        Describes information about the MsuPackage payload.
+        Cannot be specified if the owning MsuPackage specified any of SourceFile, Name, DownloadUrl, or Compressed.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="ChainPackagePayloadCommonAttributes" />
+      <xs:attributeGroup ref="RemotePackagePayloadCommonAttributes" />
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="ChainPackagePayloadCommonAttributes">
+    <xs:attribute name="Id" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The identifier of the package payload element.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DownloadUrl" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          <html:p>The URL to use to download the package. The following substitutions are supported:</html:p>
+          <html:ul>
+            <html:li>{0} is replaced by the package Id.</html:li>
+            <html:li>{1} is replaced by the payload Id.</html:li>
+            <html:li>{2} is replaced by the payload file name.</html:li>
+          </html:ul>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Compressed" type="YesNoDefaultTypeUnion">
+      <xs:annotation>
+        <xs:documentation>Whether the package payload should be embedded in a container or left as an external payload.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:attributeGroup>
+  <xs:attributeGroup name="LocalPackagePayloadCommonAttributes">
+    <xs:attribute name="SourceFile" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Location of the package to add to the bundle.
+          The default value is the Name attribute, if provided.
+          At a minimum, the SourceFile or Name attribute must be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          The destination path and file name for this chain payload.
+          Use this attribute to rename the chain entry point or extract it into a subfolder.
+          The default value is the file name from the SourceFile attribute.
+          At a minimum, the Name or SourceFile attribute must be specified.
+          This must be a relative path ('\foo' or 'C:\foo' is not allowed).
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="RemotePackagePayloadCommonAttributes">
+    <xs:attribute name="SourceFile" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Location of the package to add to the bundle.
+          The default value is the Name attribute, if provided.
+          If Hash is specified, must not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Name" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          The destination path and file name for this chain payload.
+          Use this attribute to rename the chain entry point or extract it into a subfolder.
+          The default value is the file name from the SourceFile attribute.
+          Required if Hash is specified.
+          This must be a relative path ('\foo' or 'C:\foo' is not allowed).
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Description" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Description of the file from version resources.
+          If Hash is not specified, must not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Hash" type="HexType">
+      <xs:annotation>
+        <xs:documentation>
+          SHA-512 hash of the RemotePayload.
+          If SourceFile is specified, must not be specified.
+          If specified then Name, DownloadUrl, and Size are required.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ProductName" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          Product name of the file from version resouces.
+          If Hash is not specified, must not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Size" type="xs:integer">
+      <xs:annotation>
+        <xs:documentation>
+          Size of the remote file in bytes.
+          Required if Hash is specified, otherwise must not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Version" type="VersionType">
+      <xs:annotation>
+        <xs:documentation>
+          Version of the remote file.
+          If Hash is not specified, must not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
   <xs:element name="RelatedBundle">
     <xs:annotation>
       <xs:documentation>Create a RelatedBundle element.</xs:documentation>
